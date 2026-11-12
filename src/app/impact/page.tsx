@@ -23,7 +23,7 @@ export default function ImpactPage() {
 
   return (
     <>
-      <PageHero eyebrow={hero.eyebrow} title={hero.title} quote={hero.quote} image={hero.image} />
+      <PageHero eyebrow={hero.eyebrow} title={hero.title} text={hero.text} quoted />
 
       <EditorialSplit
         headingId="story-heading"

@@ -20,7 +20,7 @@ export default function GlobalDevelopmentPage() {
 
   return (
     <>
-      <PageHero eyebrow={hero.eyebrow} title={hero.title} intro={hero.intro} image={hero.image} />
+      <PageHero eyebrow={hero.eyebrow} title={hero.title} text={hero.text} />
 
       <EditorialSplit headingId="vision-heading" label={vision.label} heading={vision.heading}>
         <Prose paragraphs={vision.paragraphs} />

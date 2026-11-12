@@ -19,7 +19,7 @@ export default function MorementumPage() {
 
   return (
     <>
-      <PageHero eyebrow={hero.eyebrow} title={hero.title} quote={hero.quote} align="center" />
+      <PageHero eyebrow={hero.eyebrow} title={hero.title} text={hero.text} quoted />
 
       <EditorialSplit headingId="about-heading" label={about.label} heading={about.heading}>
         <Prose paragraphs={about.paragraphs} />

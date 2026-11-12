@@ -51,13 +51,9 @@ const marketplaceSection = `${routes.marketplace}#${pageSectionIds.marketplace.m
 export const links = {
   home: routes.home,
 
-  /* Primary navigation — swap an anchor for a route once the page exists. */
+  /* Homepage sections standing in for pages that are not built yet.
+     Swap for a route (e.g. "/about") once the page exists. */
   about: anchor(sectionIds.story),
-  ministry: ministrySection,
-  marketplace: marketplaceSection,
-  impact: routes.impact,
-  resources: anchor(sectionIds.resources),
-  speaking: anchor(sectionIds.speaking),
   contact: anchor(sectionIds.contact),
 
   /* Calls to action with a destination today. */

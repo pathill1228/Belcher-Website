@@ -18,11 +18,8 @@ export const marketplacePage = {
 
   hero: {
     eyebrow: "Ministry & Marketplace",
-    title: ["One calling.", "Beyond the church walls."],
-    quote: "My pulpit may be in the church, but my ministry extends into the world.",
-    intro:
-      "Faith and leadership are not separate from the marketplace. The God who calls pastors also calls entrepreneurs — and the same calling that leads me into the pulpit leads me into the places that shape society.",
-    image: images.marketplace.hero,
+    title: ["One calling.", "Beyond the", "church walls."],
+    text: "My pulpit may be in the church, but my ministry extends into the world.",
   },
 
   /** In-page jump links shown beneath the hero. */

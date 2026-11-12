@@ -19,15 +19,18 @@ export type SocialLink = {
   url: string | null;
 };
 
-/** Primary navigation, in display order. Destinations live in ./links.ts. */
+/**
+ * Primary navigation, in display order — used by the desktop header and the
+ * mobile menu. The active item is derived from the URL (src/lib/navigation.ts),
+ * so pointing About or Contact at a real route later needs no other change.
+ */
 export const primaryNav: NavItem[] = [
-  { label: "Home", href: links.home },
+  { label: "Home", href: routes.home },
   { label: "About", href: links.about },
-  { label: "Ministry", href: links.ministry },
-  { label: "Marketplace", href: links.marketplace },
-  { label: "Impact", href: links.impact },
-  { label: "Resources", href: links.resources },
-  { label: "Speaking", href: links.speaking },
+  { label: "Ministry & Marketplace", href: routes.marketplace },
+  { label: "Morementum", href: routes.morementum },
+  { label: "Impact", href: routes.impact },
+  { label: "Global Development", href: routes.globalDevelopment },
   { label: "Contact", href: links.contact },
 ];
 
@@ -36,17 +39,6 @@ export const primaryCta: NavItem = {
   label: "Invite Cedric",
   href: links.inviteCedric,
 };
-
-/**
- * Secondary "Explore" row in the footer. Morementum and Global Development
- * are reachable here (and from the homepage) without crowding the header.
- */
-export const exploreNav: NavItem[] = [
-  { label: "Ministry & Marketplace", href: routes.marketplace },
-  { label: "Morementum", href: routes.morementum },
-  { label: "Impact", href: routes.impact },
-  { label: "Global Development", href: routes.globalDevelopment },
-];
 
 export const footerLinks: FooterLink[] = [
   { label: "Privacy Policy", href: links.privacy },

@@ -26,7 +26,7 @@ export default function MarketplacePage() {
 
   return (
     <>
-      <PageHero eyebrow={hero.eyebrow} title={hero.title} quote={hero.quote} intro={hero.intro} image={hero.image} />
+      <PageHero eyebrow={hero.eyebrow} title={hero.title} text={hero.text} quoted />
       <JumpNav links={page.jumpLinks} />
 
       <EditorialSplit headingId="calling-heading" label={calling.label} heading={calling.heading}>

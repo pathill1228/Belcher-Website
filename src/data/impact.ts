@@ -70,8 +70,7 @@ export const impactPage = {
   hero: {
     eyebrow: "Impact",
     title: ["Creating opportunities.", "Changing trajectories."],
-    quote: "Somebody created an opportunity for me. Now I want to create opportunities for others.",
-    image: images.impact.hero,
+    text: "Somebody created an opportunity for me. Now I want to create opportunities for others.",
   },
 
   story: {

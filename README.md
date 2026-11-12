@@ -9,12 +9,16 @@ the same design system. About, Resources, Speaking and Contact are still to come
 | Route | Page | Relationship to the homepage |
 |---|---|---|
 | `/` | Homepage | — |
-| `/marketplace` | Ministry & Marketplace (one page, two sections: `#ministry`, `#marketplace`) | Expands the "What is a Marketplace Minister?" definition, the three spheres and the method. Target of the Ministry and Marketplace cards and nav items. |
+| `/marketplace` | Ministry & Marketplace (one page, two sections: `#ministry`, `#marketplace`) | Expands the "What is a Marketplace Minister?" definition, the three spheres and the method. Target of the Ministry and Marketplace cards. |
 | `/morementum` | Morementum — Worship Before Work | Expands the Morementum card. Includes the planned daily prayer call. |
 | `/impact` | Impact & Opportunity | Expands "From Survival to Significance" and the Impact card, including Clothespins, Inc. |
 | `/global-development` | Global Development | Expands the Global Development card: the Liberia and Africa vision, with a link to Clothespins. |
 
 There is deliberately no `/ministry` route: Ministry lives on `/marketplace#ministry`.
+
+**Heroes.** The homepage keeps its split portrait hero. Every inner page uses
+the shared centered `PageHero` (navy, gold eyebrow, serif headline, gold
+divider, italic supporting line), so a change of section is obvious at a glance.
 
 ## Stack
 
@@ -61,7 +65,7 @@ src/
     external.ts          Verified off-site URLs (Clothespins)
   data/
     links.ts             Routes, every link destination, section anchor ids
-    navigation.ts        Header nav, primary CTA, footer Explore row, footer links, socials
+    navigation.ts        Header/mobile nav, primary CTA, footer links, socials
     homepage.ts          All homepage copy, as typed objects
     marketplace.ts       /marketplace copy
     morementum.ts        /morementum copy + prayer call configuration
@@ -128,7 +132,7 @@ capped by `<Container>` at 1312px.
 - `Container` — max-width + gutters
 - `Section` — background tone + vertical rhythm
 - `SectionHeading` — eyebrow, serif heading, italic intro
-- `PageHero` — inner-page hero with the page `<h1>`; optional photo on the right, quote, or centered type-only variant
+- `PageHero` — the centered inner-page hero with the page `<h1>` (eyebrow, title lines, supporting text — `quoted` for Cedric's own words — optional emphasis line and CTAs)
 - `Cta` — outlined button or underlined text link
 - `Icon` — named line icons
 - `Media` — image or placeholder (see Images)
@@ -148,16 +152,23 @@ capped by `<Container>` at 1312px.
 
 Nothing links to a page that has not been built.
 
-- **Header**: HOME `/`, MINISTRY `/marketplace#ministry`, MARKETPLACE
-  `/marketplace#marketplace`, IMPACT `/impact`. ABOUT, RESOURCES, SPEAKING and
-  CONTACT still point at homepage sections (`/#story`, `/#resources`,
-  `/#speaking`, `/#contact`). The gold underline marks the current page; when
-  two items share a page (Ministry and Marketplace), the first one is marked.
-- **Morementum and Global Development** are kept out of the header to avoid
-  crowding it. They are reached from the footer **Explore** row, the
-  "Explore" group at the bottom of the mobile menu, the homepage
-  "One Calling. Different Places." cards, and links between the inner pages.
-  The Explore list is `exploreNav` in `src/data/navigation.ts`.
+- **Header** (`primaryNav` in `src/data/navigation.ts`, used by both the
+  desktop bar and the mobile menu): HOME `/` · ABOUT `/#story` ·
+  MINISTRY & MARKETPLACE `/marketplace` · MOREMENTUM `/morementum` ·
+  IMPACT `/impact` · GLOBAL DEVELOPMENT `/global-development` ·
+  CONTACT `/#contact`, plus the INVITE CEDRIC button (`/#speaking`).
+  ABOUT and CONTACT point at homepage sections until those pages exist.
+- **Desktop vs. menu**: the full bar shows from 1280px wide; narrower screens
+  use the ☰ menu, which lists the same seven items with Invite Cedric at the top.
+- **Active page**: worked out from the URL by `findActiveHref()` in
+  `src/lib/navigation.ts`, never hard-coded per page. The current item gets
+  gold text, a solid 2px gold underline and `aria-current="page"`; in the
+  mobile menu, gold text and a gold dash. Hover is deliberately different
+  (brighter text, thin ivory underline). Homepage anchors such as `/#contact`
+  never count as active, so when About or Contact later point at real routes
+  they highlight automatically.
+- The homepage "One Calling. Different Places." cards also link to the four
+  inner pages, and each inner page ends with links onward.
 - Calls to action whose destination does not exist yet (Read the Manifesto,
   Read My Story, Explore the Vision, the speaking / resources / connect
   buttons, Privacy Policy, Terms of Use) are set to `null` in
@@ -244,12 +255,9 @@ Nothing below has been supplied yet.
 - [ ] Current Liberia impact — `public/images/story/liberia-community.jpg`
 - [ ] Current Liberia impact — `public/images/story/cedric-impact.jpg`
 - [ ] Speaking image — `public/images/connect/speaking.jpg`
-- [ ] /marketplace hero — `public/images/marketplace/marketplace-hero.jpg`
 - [ ] Preaching / teaching — `public/images/marketplace/ministry-teaching.jpg`
 - [ ] Boardroom / mentoring — `public/images/marketplace/marketplace-mentoring.jpg`
-- [ ] /impact hero (students) — `public/images/impact/impact-hero.jpg`
 - [ ] Clothespins logo or approved imagery — `public/images/impact/clothespins.jpg`
-- [ ] /global-development hero (Liberia today) — `public/images/global-development/global-hero.jpg`
 - [ ] Resources image — `public/images/connect/resources.jpg`
 - [ ] Connection/movement image — `public/images/connect/movement.jpg`
 - [ ] Social share card (1200×630) — `public/images/social/og-card.jpg`, then set `ogImage` in `src/config/site.ts`

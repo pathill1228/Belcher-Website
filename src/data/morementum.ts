@@ -48,8 +48,7 @@ export const morementumPage = {
   hero: {
     eyebrow: "Morementum",
     title: ["Worship", "before work."],
-    quote:
-      "A community of Christian entrepreneurs and leaders committed to meeting the Builder before we build.",
+    text: "A community of Christian entrepreneurs and leaders committed to meeting the Builder before we build.",
   },
 
   about: {

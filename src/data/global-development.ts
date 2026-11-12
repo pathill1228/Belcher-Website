@@ -22,9 +22,7 @@ export const globalDevelopmentPage = {
   hero: {
     eyebrow: "Global Development",
     title: ["Building opportunity.", "Strengthening communities."],
-    intro:
-      "A vision for entrepreneurship, education, and economic opportunity that strengthens communities and expands what people can build.",
-    image: images.globalDevelopment.hero,
+    text: "A vision for entrepreneurship, education, and economic opportunity that strengthens communities and expands what people can build.",
   },
 
   vision: {
