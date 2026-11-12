@@ -155,18 +155,19 @@ Nothing links to a page that has not been built.
 - **Header** (`primaryNav` in `src/data/navigation.ts`, used by both the
   desktop bar and the mobile menu): HOME `/` · ABOUT `/#story` ·
   MINISTRY & MARKETPLACE `/marketplace` · MOREMENTUM `/morementum` ·
-  IMPACT `/impact` · GLOBAL DEVELOPMENT `/global-development` ·
-  CONTACT `/#contact`, plus the INVITE CEDRIC button (`/#speaking`).
-  ABOUT and CONTACT point at homepage sections until those pages exist.
+  IMPACT `/impact` · GLOBAL DEVELOPMENT `/global-development`, plus the
+  INVITE CEDRIC button (`/#speaking`), which serves as the contact action.
+  ABOUT points at a homepage section until that page exists. Contact remains
+  a link in the footer (`/#contact`).
 - **Desktop vs. menu**: the full bar shows from 1280px wide; narrower screens
-  use the ☰ menu, which lists the same seven items with Invite Cedric at the top.
+  use the ☰ menu, which lists the same six items with Invite Cedric at the top.
 - **Active page**: worked out from the URL by `findActiveHref()` in
   `src/lib/navigation.ts`, never hard-coded per page. The current item gets
   gold text, a solid 2px gold underline and `aria-current="page"`; in the
   mobile menu, gold text and a gold dash. Hover is deliberately different
   (brighter text, thin ivory underline). Homepage anchors such as `/#contact`
-  never count as active, so when About or Contact later point at real routes
-  they highlight automatically.
+  never count as active, so when About later points at a real route
+  it highlights automatically.
 - The homepage "One Calling. Different Places." cards also link to the four
   inner pages, and each inner page ends with links onward.
 - Calls to action whose destination does not exist yet (Read the Manifesto,

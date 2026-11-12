@@ -22,7 +22,7 @@ export type SocialLink = {
 /**
  * Primary navigation, in display order — used by the desktop header and the
  * mobile menu. The active item is derived from the URL (src/lib/navigation.ts),
- * so pointing About or Contact at a real route later needs no other change.
+ * so pointing About at a real route later needs no other change.
  */
 export const primaryNav: NavItem[] = [
   { label: "Home", href: routes.home },
@@ -31,7 +31,6 @@ export const primaryNav: NavItem[] = [
   { label: "Morementum", href: routes.morementum },
   { label: "Impact", href: routes.impact },
   { label: "Global Development", href: routes.globalDevelopment },
-  { label: "Contact", href: links.contact },
 ];
 
 /** The site's primary conversion action, shown in the header and mobile menu. */
