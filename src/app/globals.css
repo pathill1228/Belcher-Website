@@ -1,0 +1,173 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Design tokens
+   Every colour, font and layout constant used by the site is defined here.
+   Tailwind generates utilities from them (bg-navy, text-gold, font-serif …).
+   ========================================================================== */
+
+@theme inline {
+  /* next/font exposes the families as CSS variables (see src/app/fonts.ts). */
+  --font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+@theme {
+  /* Brand palette */
+  --color-navy: #13233a;
+  --color-ivory: #f7f2e8;
+  --color-gold: #a7834d;
+  --color-charcoal: #2b2b2b;
+  --color-gray: #666666;
+
+  /* Supporting tones derived from the palette */
+  --color-navy-deep: #0b1626; /* header, footer, image overlays */
+  --color-navy-soft: #1e3352; /* placeholder surfaces, hairlines on navy */
+  --color-ivory-deep: #e9e0cf; /* hairlines and placeholders on ivory */
+  --color-gold-light: #cba769; /* gold text on navy (AA for small text) */
+  --color-gold-dark: #7a5d30; /* gold text on ivory (AA for small text) */
+
+  /* Layout */
+  --container-site: 82rem; /* 1312px content max-width */
+  --spacing-header: 4.5rem;
+
+  /* Letter-spacing */
+  --tracking-label: 0.18em;
+  --tracking-wordmark: 0.34em;
+
+  /* Motion */
+  --ease-brand: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  html {
+    scroll-padding-top: calc(var(--spacing-header) + 1rem);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background-color: var(--color-ivory);
+    color: var(--color-charcoal);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold-light);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background-color: var(--color-gold);
+    color: var(--color-navy-deep);
+  }
+}
+
+/* ==========================================================================
+   Typography — one utility per role, so pages never hand-pick sizes.
+   ========================================================================== */
+
+/* Hero H1 */
+@utility type-display {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.625rem, 1.6rem + 4.6vw, 5.5rem);
+  line-height: 0.98;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+}
+
+/* Major section headings */
+@utility type-heading {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.875rem, 1.4rem + 1.9vw, 2.875rem);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+/* Panel / card headings */
+@utility type-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Small uppercase labels above headings */
+@utility type-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* Buttons, navigation and other UI labels */
+@utility type-label {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Italic serif for quotations and signature lines */
+@utility type-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.0625rem, 1rem + 0.45vw, 1.3125rem);
+  line-height: 1.45;
+}
+
+/* ==========================================================================
+   Spacing
+   ========================================================================== */
+
+/* Vertical rhythm for major sections: 56px on mobile up to 104px on desktop. */
+@utility section-y {
+  padding-block: clamp(3.5rem, 2.4rem + 5vw, 6.5rem);
+}
+
+/* Tighter rhythm for dense bands (definition strip, CTA cards). */
+@utility section-y-compact {
+  padding-block: clamp(3rem, 2.4rem + 2.6vw, 4.5rem);
+}
+
+/* ==========================================================================
+   Scroll reveal (src/components/ui/Reveal.tsx)
+   Content is visible by default; it is only hidden once JavaScript has
+   confirmed it can reveal it again, and never for reduced-motion users.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal="pending"] {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+
+  [data-reveal="shown"] {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 500ms var(--ease-brand),
+      transform 500ms var(--ease-brand);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+}
