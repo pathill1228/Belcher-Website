@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import type { Href } from "@/data/links";
 import { cn } from "@/lib/cn";
-import { isExternalHref } from "@/lib/navigation";
+import { isExternalHref, isProtocolHref } from "@/lib/navigation";
 
 type Variant = "outline" | "text";
 type Tone = "dark" | "light";
@@ -48,7 +48,8 @@ const pending: Record<Variant, Record<Tone, string>> = {
 
 /**
  * The site's call-to-action: an outlined button or an underlined text link.
- * Internal hrefs use next/link, external ones open in a new tab, and
+ * Internal hrefs use next/link, web links open in a new tab, mailto:/tel:
+ * links are plain anchors, and
  * destinations that do not exist yet render as plain text marked "Soon".
  */
 export function Cta({
@@ -88,6 +89,14 @@ export function Cta({
       <a href={href} target="_blank" rel="noopener noreferrer" className={classes} onClick={onClick}>
         {content}
         <span className="sr-only">(opens in a new tab)</span>
+      </a>
+    );
+  }
+
+  if (isProtocolHref(href)) {
+    return (
+      <a href={href} className={classes} onClick={onClick}>
+        {content}
       </a>
     );
   }

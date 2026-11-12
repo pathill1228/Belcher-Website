@@ -6,9 +6,9 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { Cta } from "@/components/ui/Cta";
 import { links } from "@/data/links";
-import { primaryCta, primaryNav } from "@/data/navigation";
+import { exploreNav, primaryCta, primaryNav } from "@/data/navigation";
 import { cn } from "@/lib/cn";
-import { isActivePath } from "@/lib/navigation";
+import { findActiveHref } from "@/lib/navigation";
 import { Wordmark } from "./Wordmark";
 
 const DESKTOP_QUERY = "(min-width: 1024px)";
@@ -60,6 +60,7 @@ export function Header() {
   }, [menuOpen]);
 
   const closeMenu = () => setMenuOpen(false);
+  const activeHref = findActiveHref(primaryNav, pathname);
 
   return (
     <header
@@ -89,7 +90,7 @@ export function Header() {
         <nav aria-label="Primary" className="hidden lg:block">
           <ul className="flex items-center gap-x-3.5 xl:gap-x-8">
             {primaryNav.map((item) => {
-              const active = isActivePath(item.href, pathname);
+              const active = item.href === activeHref;
               return (
                 <li key={item.label}>
                   <Link
@@ -146,7 +147,7 @@ export function Header() {
           </Cta>
           <ul className="mt-4 divide-y divide-ivory/10">
             {primaryNav.map((item) => {
-              const active = isActivePath(item.href, pathname);
+              const active = item.href === activeHref;
               return (
                 <li key={item.label}>
                   <Link
@@ -164,6 +165,22 @@ export function Header() {
                 </li>
               );
             })}
+          </ul>
+
+          <p className="type-label mt-10 text-gold-light">Explore</p>
+          <ul className="mt-2">
+            {exploreNav.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  aria-current={pathname === item.href ? "page" : undefined}
+                  className="type-label flex min-h-11 items-center text-ivory/85 aria-[current=page]:text-gold-light"
+                  onClick={closeMenu}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
       </div>

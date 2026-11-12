@@ -1,9 +1,20 @@
 # Cedric Belcher — Marketplace Minister
 
-The personal-brand website for Cedric N. Belcher, Sr. This first version is the
-homepage, built to match the approved design in `references/Image Page.pdf`
-and structured so the remaining pages (About, Ministry, Marketplace, Impact,
-Resources, Speaking, Contact) can be added on top of the same design system.
+The personal-brand website for Cedric N. Belcher, Sr. The homepage matches the
+approved design in `references/Image Page.pdf`; four inner pages extend it using
+the same design system. About, Resources, Speaking and Contact are still to come.
+
+## Pages
+
+| Route | Page | Relationship to the homepage |
+|---|---|---|
+| `/` | Homepage | — |
+| `/marketplace` | Ministry & Marketplace (one page, two sections: `#ministry`, `#marketplace`) | Expands the "What is a Marketplace Minister?" definition, the three spheres and the method. Target of the Ministry and Marketplace cards and nav items. |
+| `/morementum` | Morementum — Worship Before Work | Expands the Morementum card. Includes the planned daily prayer call. |
+| `/impact` | Impact & Opportunity | Expands "From Survival to Significance" and the Impact card, including Clothespins, Inc. |
+| `/global-development` | Global Development | Expands the Global Development card: the Liberia and Africa vision, with a link to Clothespins. |
+
+There is deliberately no `/ministry` route: Ministry lives on `/marketplace#ministry`.
 
 ## Stack
 
@@ -38,19 +49,30 @@ src/
   app/
     layout.tsx           Root layout: fonts, <Header>, <main>, <Footer>, default metadata
     page.tsx             Homepage: composes the section components
+    marketplace/         /marketplace     (page.tsx composes shared components)
+    morementum/          /morementum
+    impact/              /impact
+    global-development/  /global-development
     globals.css          Design tokens, typography roles, spacing utilities
     fonts.ts             Font configuration (next/font)
     icon.svg             Favicon (interim "CB" mark)
   config/
     site.ts              Name, SEO title/description, tagline, site URL, share image
+    external.ts          Verified off-site URLs (Clothespins)
   data/
-    links.ts             Every link destination + homepage anchor ids
-    navigation.ts        Header nav, primary CTA, footer links, social profiles
+    links.ts             Routes, every link destination, section anchor ids
+    navigation.ts        Header nav, primary CTA, footer Explore row, footer links, socials
     homepage.ts          All homepage copy, as typed objects
+    marketplace.ts       /marketplace copy
+    morementum.ts        /morementum copy + prayer call configuration
+    impact.ts            /impact copy, initiatives, impact stories
+    global-development.ts  /global-development copy
     images.ts            Image manifest (path, alt text, crop, ready flag)
   components/
     layout/              Header, Footer, Wordmark, SocialIcon
     home/                One component per homepage section
+    morementum/          PrayerCallDetails
+    impact/              InitiativeList, ImpactStories, StorySequence
     ui/                  Reusable primitives (see below)
     seo/JsonLd.tsx       Structured-data script tag
   lib/
@@ -64,6 +86,10 @@ src/
 | I want to change… | Edit |
 |---|---|
 | Homepage wording | `src/data/homepage.ts` |
+| Inner-page wording, headings, CTAs | `src/data/marketplace.ts`, `morementum.ts`, `impact.ts`, `global-development.ts` |
+| Prayer call details | `prayerCall` in `src/data/morementum.ts` |
+| Impact initiatives and stories | `initiatives` / `impactStories` in `src/data/impact.ts` |
+| Clothespins link | `src/config/external.ts` |
 | Navigation items, footer links, social URLs | `src/data/navigation.ts` |
 | Where a button or nav item goes | `src/data/links.ts` |
 | Colours, type scale, section spacing | `src/app/globals.css` |
@@ -102,22 +128,42 @@ capped by `<Container>` at 1312px.
 - `Container` — max-width + gutters
 - `Section` — background tone + vertical rhythm
 - `SectionHeading` — eyebrow, serif heading, italic intro
-- `PageHero` — navy title band with the page `<h1>`, for interior pages
+- `PageHero` — inner-page hero with the page `<h1>`; optional photo on the right, quote, or centered type-only variant
 - `Cta` — outlined button or underlined text link
 - `Icon` — named line icons
 - `Media` — image or placeholder (see Images)
 - `Lines` — deliberate line breaks that still read as one sentence
 - `Reveal` — scroll-in fade (disabled under `prefers-reduced-motion`)
+- `EditorialSplit` — label + serif heading left, content right, gold hairline between
+- `ImageSplit` — photograph beside a labelled block of copy; alternate sides down a page
+- `FeatureColumns` — three (or six) icon-led columns with hairline dividers
+- `NumberedList` — 01 / 02 / 03 editorial rows (used for Engage · Enlighten · Empower)
+- `HairlineList` — short uppercase terms in two ruled columns
+- `Prose`, `PullQuote` — inner-page body copy and set-off quotations
+- `JumpNav` — "On this page" anchor links under a hero
+- `RhythmRow` — Pray and build · Worship and work · Give and grow · Serve and lead
+- `ClosingStatement` — the navy closing band that ends each inner page
 
-## Links and "Soon" labels
+## Navigation, links and "Soon" labels
 
-Only the homepage exists, so nothing links to a page that has not been built.
+Nothing links to a page that has not been built.
 
-- Header navigation points at homepage anchors (`/#story`, `/#speaking`, …).
+- **Header**: HOME `/`, MINISTRY `/marketplace#ministry`, MARKETPLACE
+  `/marketplace#marketplace`, IMPACT `/impact`. ABOUT, RESOURCES, SPEAKING and
+  CONTACT still point at homepage sections (`/#story`, `/#resources`,
+  `/#speaking`, `/#contact`). The gold underline marks the current page; when
+  two items share a page (Ministry and Marketplace), the first one is marked.
+- **Morementum and Global Development** are kept out of the header to avoid
+  crowding it. They are reached from the footer **Explore** row, the
+  "Explore" group at the bottom of the mobile menu, the homepage
+  "One Calling. Different Places." cards, and links between the inner pages.
+  The Explore list is `exploreNav` in `src/data/navigation.ts`.
 - Calls to action whose destination does not exist yet (Read the Manifesto,
-  Read My Story, Learn More, Privacy Policy, …) are set to `null` in
+  Read My Story, Explore the Vision, the speaking / resources / connect
+  buttons, Privacy Policy, Terms of Use) are set to `null` in
   `src/data/links.ts`. The `Cta` component renders these as plain,
   non-clickable labels marked **Soon**.
+- External web links open in a new tab; `tel:` and `mailto:` links are plain anchors.
 
 When a page ships, change one line in `src/data/links.ts`, for example:
 
@@ -128,6 +174,54 @@ story: "/about",        // was null
 
 Every button and nav item using that destination becomes a live link, and the
 header's gold active-page indicator starts working for the new route.
+
+### Prayer call (Morementum)
+
+No phone number, meeting link, schedule or time zone has been confirmed, so
+`/morementum` shows **"Prayer call details coming soon."** When details are
+final, fill in `prayerCall` in `src/data/morementum.ts`:
+
+```ts
+export const prayerCall: PrayerCallConfig = {
+  title: "Morementum Daily Prayer Call",
+  description: "…",
+  phoneNumber: "+1 (555) 010-0000", // shows a "Call in" button (tel: link)
+  accessCode: "123456",             // optional
+  meetingUrl: "https://…",          // shows a "Join online" button
+  schedule: "Weekdays at 6:00 AM",
+  timezone: "Central Time (CT)",
+};
+```
+
+Join buttons only appear for the fields that are filled in.
+
+### Impact initiatives and stories
+
+`src/data/impact.ts` holds two typed lists:
+
+- `initiatives` — currently only **Clothespins, Inc.**, the one initiative
+  documented in the references. Fields: `title`, `description`, `category`,
+  and optional `image`, `location`, `url`, `urlLabel`.
+- `impactStories` — empty. Add verified stories with `title`, `summary`,
+  `category` and optional `image`, `location`, `url`, `publishedDate`,
+  `verifiedOutcome`. The grid only appears on `/impact` once the list has
+  entries. Don't add estimated or unverified outcomes.
+
+### Clothespins link
+
+`externalLinks.clothespins` in `src/config/external.ts`
+(`https://www.clothespins.org/`). It was supplied by the client; on 2026-11-12
+`clothespins.org` redirected there and served the Clothespins site. Confirm with
+Cedric's team before launch. Both `/impact` and `/global-development` use it.
+
+## Deferred features
+
+Intentionally **not** built yet: the Invite Cedric speaking inquiry form, a
+Resources library or downloads, Stay Connected / newsletter / email
+subscription, a blog, Morementum's independent website, donations, and pages
+for About, Speaking, Resources, Contact, Privacy Policy and Terms of Use. The
+homepage's existing CTAs for these keep their current behaviour (homepage
+anchors or "Soon" labels).
 
 ## Images
 
@@ -150,17 +244,29 @@ Nothing below has been supplied yet.
 - [ ] Current Liberia impact — `public/images/story/liberia-community.jpg`
 - [ ] Current Liberia impact — `public/images/story/cedric-impact.jpg`
 - [ ] Speaking image — `public/images/connect/speaking.jpg`
+- [ ] /marketplace hero — `public/images/marketplace/marketplace-hero.jpg`
+- [ ] Preaching / teaching — `public/images/marketplace/ministry-teaching.jpg`
+- [ ] Boardroom / mentoring — `public/images/marketplace/marketplace-mentoring.jpg`
+- [ ] /impact hero (students) — `public/images/impact/impact-hero.jpg`
+- [ ] Clothespins logo or approved imagery — `public/images/impact/clothespins.jpg`
+- [ ] /global-development hero (Liberia today) — `public/images/global-development/global-hero.jpg`
 - [ ] Resources image — `public/images/connect/resources.jpg`
 - [ ] Connection/movement image — `public/images/connect/movement.jpg`
 - [ ] Social share card (1200×630) — `public/images/social/og-card.jpg`, then set `ogImage` in `src/config/site.ts`
 - [ ] Final logo / CB monogram (the header wordmark, footer "CB" and `src/app/icon.svg` are typeset interim versions)
 - [ ] Social URLs — fill in `url` values in `src/data/navigation.ts`
 - [ ] Final production domain — set `NEXT_PUBLIC_SITE_URL`
-- [ ] Morementum URL, contact/booking destination, privacy policy and terms text
+- [ ] Morementum logo/visual asset (the page is typographic until one exists) and future website URL
+- [ ] Morementum prayer call details (phone/link, schedule, time zone)
+- [ ] Confirmation of the Clothespins URL
+- [ ] Contact/booking destination, privacy policy and terms text
 
 ## Adding a page
 
 Example: `/about`.
+
+The four inner pages (`src/app/marketplace/page.tsx` etc.) are working
+examples of this pattern.
 
 1. Create `src/app/about/page.tsx`. The root layout supplies the header and footer.
 
@@ -179,7 +285,7 @@ Example: `/about`.
    export default function AboutPage() {
      return (
        <>
-         <PageHero eyebrow="About" title="From Survival to Significance" />
+         <PageHero eyebrow="About" title={["From Survival", "to Significance"]} />
          <Section>
            <Container>{/* page content */}</Container>
          </Section>
@@ -190,7 +296,8 @@ Example: `/about`.
 
 2. Put the page's copy in `src/data/about.ts` and any section components in
    `src/components/about/`.
-3. Point the relevant entries in `src/data/links.ts` at `/about`.
+3. Add the route to `routes` in `src/data/links.ts` and point the relevant
+   entries (e.g. `about`, `story`) at it.
 4. Add any new photographs to `src/data/images.ts`.
 
 Keep one `<h1>` per page (`PageHero` renders it) and use `SectionHeading` for `<h2>`s.

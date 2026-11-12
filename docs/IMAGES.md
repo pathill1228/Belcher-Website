@@ -37,6 +37,24 @@ If you prefer a different filename or format, change `src` in `src/data/images.t
 | 12 | `images/connect/movement.jpg` | Wide, hopeful landscape or gathering — horizon, sunrise, community. | Landscape 3:2, 1400×933 | "Stay connected" card. |
 | 13 | `images/social/og-card.jpg` | Branded share card: portrait, name, "Marketplace Minister". | 1200×630 exactly | Link previews. After adding, set `ogImage: "/images/social/og-card.jpg"` in `src/config/site.ts`. |
 
+### Inner pages
+
+| # | File (inside `/public`) | Subject | Orientation / min. size | Where it appears |
+|---|---|---|---|---|
+| 14 | `images/marketplace/marketplace-hero.jpg` | Statesman portrait in a marketplace setting — boardroom, office, architecture. A different photo from the homepage hero. | Landscape 3:2, 2000×1333. Subject in the right two-thirds. | `/marketplace` hero (right 46% on desktop; 16:10 beneath the copy on mobile). |
+| 15 | `images/marketplace/ministry-teaching.jpg` | Cedric preaching or teaching; documentary, not staged. | Portrait 4:5, 1200×1500 (centre-weighted so a 16:10 crop also works) | `/marketplace#ministry`, left of the copy. |
+| 16 | `images/marketplace/marketplace-mentoring.jpg` | Mentoring, conversation or working session with entrepreneurs; avoid laptop clichés. | Portrait 4:5, 1200×1500 (centre-weighted) | `/marketplace#marketplace`, right of the copy. |
+| 17 | `images/impact/impact-hero.jpg` | Students and education; dignified and hopeful. | Landscape 3:2, 2000×1333 | `/impact` hero. |
+| 18 | `images/impact/clothespins.jpg` | Clothespins logo on a calm background, or Clothespins-approved imagery. | Landscape 16:10, 1600×1000 | Clothespins row on `/impact` (16:10) and the Clothespins section on `/global-development` (4:5 on desktop, so keep it centre-weighted). |
+| 19 | `images/global-development/global-hero.jpg` | Liberia today: enterprise, community, landscape. No poverty imagery. | Landscape 3:2, 2000×1333 | `/global-development` hero. |
+
+These existing slots are reused on the inner pages, so one photo serves both places:
+
+- `images/story/liberia-journey.jpg` also appears in "Rooted in Liberia" on `/global-development` (4:5 on desktop).
+
+`/morementum` is intentionally typographic. A Morementum logo or visual can be
+added later if one is approved.
+
 ## Art direction (from the brand guide)
 
 - Authentic photography only — no stock people, no AI-generated likenesses.

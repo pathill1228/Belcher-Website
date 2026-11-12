@@ -97,6 +97,57 @@ export const images = {
     },
   },
 
+  marketplace: {
+    hero: {
+      src: "/images/marketplace/marketplace-hero.jpg",
+      ready: false,
+      alt: "Cedric N. Belcher, Sr. in conversation with business leaders",
+      placeholder: "Statesman portrait",
+      position: "object-[60%_25%]",
+    },
+    ministry: {
+      src: "/images/marketplace/ministry-teaching.jpg",
+      ready: false,
+      alt: "Cedric N. Belcher, Sr. preaching",
+      placeholder: "Preaching & teaching",
+      position: "object-center",
+    },
+    marketplace: {
+      src: "/images/marketplace/marketplace-mentoring.jpg",
+      ready: false,
+      alt: "Cedric N. Belcher, Sr. mentoring entrepreneurs around a table",
+      placeholder: "Boardroom & mentoring",
+      position: "object-center",
+    },
+  },
+
+  impact: {
+    hero: {
+      src: "/images/impact/impact-hero.jpg",
+      ready: false,
+      alt: "Students gathered at a school",
+      placeholder: "Students & opportunity",
+      position: "object-center",
+    },
+    clothespins: {
+      src: "/images/impact/clothespins.jpg",
+      ready: false,
+      alt: "",
+      placeholder: "Clothespins, Inc.",
+      position: "object-center",
+    },
+  },
+
+  globalDevelopment: {
+    hero: {
+      src: "/images/global-development/global-hero.jpg",
+      ready: false,
+      alt: "Community and enterprise in Liberia",
+      placeholder: "Liberia today",
+      position: "object-center",
+    },
+  },
+
   connect: {
     speaking: {
       src: "/images/connect/speaking.jpg",

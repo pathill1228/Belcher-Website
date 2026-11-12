@@ -5,10 +5,13 @@ import {
   Compass,
   Flame,
   GraduationCap,
+  Hammer,
   HandHeart,
   HandHelping,
   Heart,
   Lightbulb,
+  Milestone,
+  Scale,
   Sprout,
   Store,
   Sunrise,
@@ -39,6 +42,9 @@ const icons = {
   morementum: Sunrise,
   impact: HandHeart,
   global: Compass,
+  direction: Milestone,
+  craft: Hammer,
+  stewardship: Scale,
 } satisfies Record<string, LucideIcon>;
 
 export type IconName = keyof typeof icons;

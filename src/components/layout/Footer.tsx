@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
-import { footerLinks, socialLinks } from "@/data/navigation";
+import { exploreNav, footerLinks, socialLinks } from "@/data/navigation";
 import { Container } from "@/components/ui/Container";
 import { SocialIcon } from "./SocialIcon";
 
@@ -10,6 +10,23 @@ export function Footer() {
 
   return (
     <footer className="bg-navy-deep text-ivory">
+      <nav aria-label="Explore" className="border-b border-ivory/10">
+        <Container className="flex flex-col gap-x-10 gap-y-1 py-5 md:flex-row md:items-center">
+          <p className="type-label text-gold-light">Explore</p>
+          <ul className="flex flex-wrap gap-x-8">
+            {exploreNav.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="type-label flex min-h-11 items-center text-ivory/85 transition-colors hover:text-gold-light"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </nav>
       <Container className="grid gap-10 py-12 md:grid-cols-2 lg:grid-cols-[auto_1fr_auto_auto] lg:items-center lg:gap-12 lg:py-10">
         <div className="flex items-center gap-5">
           <span

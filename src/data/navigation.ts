@@ -1,4 +1,4 @@
-import { links, type Href } from "./links";
+import { links, routes, type Href } from "./links";
 
 export type NavItem = {
   label: string;
@@ -36,6 +36,17 @@ export const primaryCta: NavItem = {
   label: "Invite Cedric",
   href: links.inviteCedric,
 };
+
+/**
+ * Secondary "Explore" row in the footer. Morementum and Global Development
+ * are reachable here (and from the homepage) without crowding the header.
+ */
+export const exploreNav: NavItem[] = [
+  { label: "Ministry & Marketplace", href: routes.marketplace },
+  { label: "Morementum", href: routes.morementum },
+  { label: "Impact", href: routes.impact },
+  { label: "Global Development", href: routes.globalDevelopment },
+];
 
 export const footerLinks: FooterLink[] = [
   { label: "Privacy Policy", href: links.privacy },

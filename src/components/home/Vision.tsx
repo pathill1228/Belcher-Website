@@ -1,7 +1,7 @@
 import { vision } from "@/data/homepage";
 import { sectionIds } from "@/data/links";
 import { Cta } from "@/components/ui/Cta";
-import { Icon } from "@/components/ui/Icon";
+import { RhythmRow } from "@/components/ui/RhythmRow";
 import { Lines } from "@/components/ui/Lines";
 
 const HEADING_ID = "vision-heading";
@@ -37,14 +37,7 @@ export function Vision() {
           <Lines lines={vision.clarifier} />
         </p>
 
-        <ul className="mt-10 grid w-full max-w-xl grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4">
-          {vision.pairings.map((pairing) => (
-            <li key={pairing.label} className="flex flex-col items-start gap-3 sm:items-center">
-              <Icon name={pairing.icon} className="size-9 text-gold-light" />
-              <span className="type-label max-w-[6.5rem] leading-normal">{pairing.label}</span>
-            </li>
-          ))}
-        </ul>
+        <RhythmRow items={vision.pairings} className="mt-10" />
 
         <Cta href={vision.cta.href} className="mt-10">
           {vision.cta.label}
